@@ -19,7 +19,6 @@ const UserManagement = ({ selectedUsers, setSelectedUsers }) => {
   const [showAddUserModal, setShowAddUserModal] = useState(false)
   const [filteredUsers, setFilteredUsers] = useState([])
 
-  // Format created_at timestamp to relative time
   const formatLastActive = (createdAt) => {
     const date = new Date(createdAt)
     const now = new Date()
@@ -40,23 +39,21 @@ const UserManagement = ({ selectedUsers, setSelectedUsers }) => {
     }
   }
 
-  // Fetch users from API
   const fetchUsers = async (roleFilter = null) => {
     try {
       setLoading(true)
       setError(null)
       const response = await userAPI.getUsers(roleFilter)
-      
-      // Transform API data to match frontend structure
+
       const transformedUsers = response.users.map(user => ({
         id: user.id,
         name: user.name,
         email: user.email,
         role: user.role,
-        status: 'Active', // Default status since API doesn't include it
-        lastActive: formatLastActive(user.created_at), // Format created_at to relative time
+        status: 'Active',
+        lastActive: formatLastActive(user.created_at),
         avatar: `https://ui-avatars.com/api/?name=${encodeURIComponent(user.name)}&background=random&size=36`,
-        created_at: user.created_at // Keep original timestamp for reference
+        created_at: user.created_at
       }))
       
       setUsers(transformedUsers)
@@ -68,12 +65,10 @@ const UserManagement = ({ selectedUsers, setSelectedUsers }) => {
     }
   }
 
-  // Load users on component mount
   useEffect(() => {
     fetchUsers()
   }, [])
 
-  // Refetch users when role filter changes
   useEffect(() => {
     const roleFilter = filters.role === 'All Roles' ? null : 
                       filters.role.toLowerCase() === 'admin' ? 'admin' : 
@@ -81,24 +76,20 @@ const UserManagement = ({ selectedUsers, setSelectedUsers }) => {
     fetchUsers(roleFilter)
   }, [filters.role])
 
-  // Apply filters to users
   useEffect(() => {
     let filtered = [...users]
-    
-    // Search filter
+
     if (filters.search) {
       filtered = filtered.filter(user => 
         user.name.toLowerCase().includes(filters.search.toLowerCase()) ||
         user.email.toLowerCase().includes(filters.search.toLowerCase())
       )
     }
-    
-    // Status filter (all users are 'Active' in current implementation)
+
     if (filters.status !== 'All Statuses') {
       filtered = filtered.filter(user => user.status === filters.status)
     }
-    
-    // Role filter
+
     if (filters.role !== 'All Roles') {
       filtered = filtered.filter(user => 
         user.role.toLowerCase() === filters.role.toLowerCase()
@@ -121,7 +112,7 @@ const UserManagement = ({ selectedUsers, setSelectedUsers }) => {
   }
 
   const handleUserAdded = (newUser) => {
-    fetchUsers() // Refresh the user list
+    fetchUsers()
     setShowAddUserModal(false)
   }
 
@@ -157,7 +148,6 @@ const UserManagement = ({ selectedUsers, setSelectedUsers }) => {
         </div>
       </div>
 
-      {/* Enhanced Filtering UI */}
       {showFilters && (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8 bg-surface-container/30 p-4 rounded-xl border border-outline-variant/20 backdrop-blur-sm animate-in slide-in-from-top-4 duration-300">
         <div className="space-y-2">
@@ -219,7 +209,6 @@ const UserManagement = ({ selectedUsers, setSelectedUsers }) => {
       </div>
       )}
 
-      {/* Loading and Error States */}
       {loading && (
         <div className="bg-surface-container/30 p-8 rounded-xl border border-outline-variant/20 backdrop-blur-sm text-center">
           <div className="inline-flex items-center gap-2 text-on-surface-variant">\
@@ -243,7 +232,6 @@ const UserManagement = ({ selectedUsers, setSelectedUsers }) => {
         </div>
       )}
 
-      {/* Modern Data Table Card with Multi-Select */}
       {!loading && !error && (
         <DataTable 
           users={filteredUsers.length > 0 ? filteredUsers : users} 
@@ -252,7 +240,6 @@ const UserManagement = ({ selectedUsers, setSelectedUsers }) => {
         />
       )}
 
-      {/* Bulk Actions Floating Bar */}
       {selectedUsers.length > 0 && (
         <BulkActions 
           selectedUsers={selectedUsers} 
@@ -260,7 +247,6 @@ const UserManagement = ({ selectedUsers, setSelectedUsers }) => {
         />
       )}
 
-      {/* Add User Modal */}
       <AddUserModal 
         isOpen={showAddUserModal}
         onClose={handleCloseAddUserModal}

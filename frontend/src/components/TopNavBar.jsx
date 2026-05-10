@@ -7,9 +7,8 @@ const TopNavBar = ({ currentUser, onLogout }) => {
     <header className="flex justify-between items-center w-full px-margin-desktop h-16 bg-surface/60 backdrop-blur-xl sticky top-0 z-50 border-b border-outline-variant/20 shadow-[0_0_15px_rgba(173,198,255,0.1)]">
       <div className="flex items-center gap-8 flex-1">
         <span className="text-headline-md font-headline-md font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent shrink-0">Easy My Storage</span>
-        
+
         <div className="hidden md:flex items-center relative max-w-md w-full">
-          {/* <span className="material-symbols-outlined absolute left-3 text-outline text-[20px]" data-icon="search">search</span> */}
           <input 
             className="w-full bg-surface-container-high/40 border border-outline-variant/30 rounded-full py-1.5 pl-10 pr-4 text-body-sm focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary/30 transition-all" 
             placeholder="Search resources..." 

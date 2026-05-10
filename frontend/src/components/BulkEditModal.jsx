@@ -17,7 +17,6 @@ const BulkEditModal = ({ isOpen, onClose, selectedUsers, onUsersUpdated }) => {
     setError('')
 
     try {
-      // For bulk edit, we'll update role and status for all selected users
       await userAPI.bulkUpdateStatus(
         selectedUsers.map(user => user.id),
         formData.status

@@ -40,7 +40,6 @@ const BulkActions = ({ selectedUsers, setSelectedUsers }) => {
   }
 
   const handleUsersUpdated = () => {
-    // This will trigger a refresh of the user list in the parent component
     window.location.reload()
   }
 
@@ -87,7 +86,6 @@ const BulkActions = ({ selectedUsers, setSelectedUsers }) => {
         </button>
       </div>
 
-      {/* Bulk Edit Modal */}
       <BulkEditModal 
         isOpen={showEditModal}
         onClose={() => setShowEditModal(false)}

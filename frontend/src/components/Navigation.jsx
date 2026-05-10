@@ -20,7 +20,6 @@ const Navigation = () => {
 
   return (
     <>
-      {/* Desktop Sidebar */}
       <aside className="hidden md:flex flex-col h-screen w-64 sticky top-0 bg-surface-container-low/80 backdrop-blur-2xl border-r border-outline-variant/20 shadow-2xl shadow-surface-lowest/50 z-[60]">
         <div className="flex flex-col h-full py-6 gap-2">
           <div className="px-6 mb-8">
@@ -54,7 +53,6 @@ const Navigation = () => {
         </div>
       </aside>
 
-      {/* Mobile Bottom Navigation */}
       <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-surface/80 backdrop-blur-2xl border-t border-outline-variant/20 flex justify-around items-center h-16 z-50 px-6">
         {mobileNavItems.map((item) => (
           <button

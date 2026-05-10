@@ -26,25 +26,22 @@ const Auth = ({ onLogin }) => {
 
     try {
       if (isLogin) {
-        // Login
         const response = await userAPI.login({
           email: formData.email,
           password: formData.password
         })
-        
+
         userAPI.storeUser(response.user)
         onLogin(response.user)
       } else {
-        // Register
         const response = await userAPI.register(formData)
-        
+
         if (response.success) {
-          // Auto-login after successful registration
           const loginResponse = await userAPI.login({
             email: formData.email,
             password: formData.password
           })
-          
+
           userAPI.storeUser(loginResponse.user)
           onLogin(loginResponse.user)
         }
@@ -68,7 +65,6 @@ const Auth = ({ onLogin }) => {
           </p>
         </div>
 
-        {/* Tab Toggle */}
         <div className="flex mb-6 bg-surface-container-high/40 rounded-lg p-1">
           <button
             onClick={() => setIsLogin(true)}
@@ -92,7 +88,6 @@ const Auth = ({ onLogin }) => {
           </button>
         </div>
 
-        {/* Form */}
         <form onSubmit={handleSubmit} className="space-y-4">
           {!isLogin && (
             <div>
@@ -158,7 +153,6 @@ const Auth = ({ onLogin }) => {
             </div>
           )}
 
-          {/* Error Message */}
           {error && (
             <div className="bg-error-container/30 p-3 rounded-lg border border-error-variant/20">
               <div className="flex items-center gap-2 text-error text-body-sm">
@@ -168,7 +162,6 @@ const Auth = ({ onLogin }) => {
             </div>
           )}
 
-          {/* Submit Button */}
           <button
             type="submit"
             disabled={loading}
