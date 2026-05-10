@@ -1,5 +1,4 @@
-CREATE DATABASE IF NOT EXISTS user_management;
-USE user_management;
+USE railway;
 
 CREATE TABLE IF NOT EXISTS users (
   id INT AUTO_INCREMENT PRIMARY KEY,
